@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Github, Linkedin, Download, ChevronDown } from "lucide-react";
-import photoYacine from "../../assets/Profile.png";
+import photoYacine from "../../assets/profile.png";
 
 function Home() {
   const [text, setText] = useState("");
