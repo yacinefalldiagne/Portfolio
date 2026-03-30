@@ -1,4 +1,15 @@
-import { Code2, Database, Brain, Award, Sparkles, Zap, Target } from "lucide-react";
+import {
+  Code2,
+  Database,
+  Brain,
+  Award,
+  Sparkles,
+  Zap,
+  Target,
+  GraduationCap,
+  ExternalLink,
+  Eye,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 function About() {
@@ -34,11 +45,22 @@ function About() {
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "Certification IBM",
-      description:
-        "Certifiée IBM Data Analyst et IBM Data Engineering Professional",
+      title: "Certifications",
+      description: "IBM Data Analyst • Dataiku Core Designer",
       color: "#f59e0b",
       gradient: "linear-gradient(135deg, #f59e0b, #d97706)",
+      certificates: [
+        {
+          name: "IBM Data Analyst",
+          file: "/certifications/ibm-cert.pdf",
+          image: "/certifications/ibm.png",
+        },
+        {
+          name: "Dataiku Core Designer",
+          file: "/certifications/dataiku-cert.pdf",
+          image: "/certifications/dataiku.png",
+        },
+      ],
     },
   ];
 
@@ -64,31 +86,30 @@ function About() {
       active: false,
       icon: <Target className="w-4 h-4" />,
     },
+    {
+      degree: "Diplome Superieur technologique",
+      school: "Ecole Superieure Polytechnique de DAKAR",
+      year: "2022 - 2023",
+      active: false,
+      icon: <GraduationCap className="w-4 h-4" />,
+    },
   ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
+          if (entry.isIntersecting) setIsVisible(true);
         });
       },
       { threshold: 0.15 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+    const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -104,7 +125,6 @@ function About() {
     >
       {/* Animated background effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Gradient orbs */}
         <div
           className="absolute top-[-20%] right-[-10%] w-[50rem] h-[50rem] rounded-full blur-[200px] opacity-20"
           style={{
@@ -121,8 +141,6 @@ function About() {
             transition: "transform 0.5s ease-out",
           }}
         />
-
-        {/* Animated grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -134,8 +152,6 @@ function About() {
             animation: "gridMove 20s linear infinite",
           }}
         />
-
-        {/* Floating particles */}
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
@@ -164,27 +180,27 @@ function About() {
             transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 backdrop-blur-sm"
+          <div
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 backdrop-blur-sm"
             style={{
               background: "linear-gradient(135deg, rgba(196,154,108,0.15), rgba(139,92,246,0.15))",
               border: "1px solid rgba(196,154,108,0.3)",
               boxShadow: "0 0 30px rgba(196,154,108,0.1), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
           >
-            <div className="w-2 h-2 rounded-full" style={{ 
-              backgroundColor: "#c49a6c",
-              boxShadow: "0 0 10px #c49a6c",
-              animation: "pulse 2s ease-in-out infinite",
-            }} />
-            <span className="text-xs font-semibold tracking-[0.25em] uppercase"
-              style={{ color: "#c49a6c" }}
-            >
+            <div
+              className="w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: "#c49a6c",
+                boxShadow: "0 0 10px #c49a6c",
+                animation: "pulse 2s ease-in-out infinite",
+              }}
+            />
+            <span className="text-xs font-semibold tracking-[0.25em] uppercase" style={{ color: "#c49a6c" }}>
               À PROPOS
             </span>
           </div>
 
-          {/* Main title */}
           <h2 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <span style={{ color: "#f0ece6" }}>Mon </span>
             <span
@@ -201,31 +217,21 @@ function About() {
             </span>
           </h2>
 
-          {/* Decorative line */}
           <div className="flex items-center justify-center gap-3">
-            <div className="h-[2px] w-16 rounded-full" 
-              style={{ 
-                background: "linear-gradient(90deg, transparent, #c49a6c, transparent)",
-                animation: "expandWidth 2s ease-in-out infinite",
-              }} 
+            <div
+              className="h-[2px] w-16 rounded-full"
+              style={{ background: "linear-gradient(90deg, transparent, #c49a6c, transparent)", animation: "expandWidth 2s ease-in-out infinite" }}
             />
-            <div className="w-2 h-2 rounded-full" 
-              style={{ 
-                backgroundColor: "#c49a6c",
-                boxShadow: "0 0 15px #c49a6c",
-              }} 
-            />
-            <div className="h-[2px] w-16 rounded-full" 
-              style={{ 
-                background: "linear-gradient(90deg, transparent, #c49a6c, transparent)",
-                animation: "expandWidth 2s ease-in-out infinite 1s",
-              }} 
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#c49a6c", boxShadow: "0 0 15px #c49a6c" }} />
+            <div
+              className="h-[2px] w-16 rounded-full"
+              style={{ background: "linear-gradient(90deg, transparent, #c49a6c, transparent)", animation: "expandWidth 2s ease-in-out infinite 1s" }}
             />
           </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 mb-24">
-          {/* Left - Story with glassmorphism */}
+          {/* Left - Story */}
           <div
             className="flex flex-col gap-8"
             style={{
@@ -234,96 +240,61 @@ function About() {
               transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 200ms",
             }}
           >
-            {/* Title card */}
             <div className="relative">
-              <div className="absolute inset-0 rounded-3xl blur-xl opacity-20"
+              <div
+                className="absolute inset-0 rounded-3xl blur-xl opacity-20"
                 style={{ background: "linear-gradient(135deg, #c49a6c, #8b5cf6)" }}
               />
-              <div className="relative p-8 rounded-3xl backdrop-blur-sm"
+              <div
+                className="relative p-8 rounded-3xl backdrop-blur-sm"
                 style={{
                   background: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
                   border: "1px solid rgba(255,255,255,0.1)",
                   boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
                 }}
               >
-                <h3 className="text-3xl font-bold mb-4" style={{ color: "#f0ece6" }}>
-                  Qui suis-je ?
-                </h3>
-                <div
-                  className="h-1 rounded-full mb-6"
-                  style={{
-                    width: "60px",
-                    background: "linear-gradient(90deg, #c49a6c, transparent)",
-                  }}
-                />
-
+                <h3 className="text-3xl font-bold mb-4" style={{ color: "#f0ece6" }}>Qui suis-je ?</h3>
+                <div className="h-1 rounded-full mb-6" style={{ width: "60px", background: "linear-gradient(90deg, #c49a6c, transparent)" }} />
                 <div className="space-y-5">
                   <p className="leading-relaxed text-base" style={{ color: "#cbd5e0" }}>
                     Diplômée de l'
-                    <span className="font-semibold px-2 py-1 rounded mx-1"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(196,154,108,0.2), rgba(196,154,108,0.1))",
-                        color: "#c49a6c",
-                      }}
-                    >
+                    <span className="font-semibold px-2 py-1 rounded mx-1" style={{ background: "linear-gradient(135deg, rgba(196,154,108,0.2), rgba(196,154,108,0.1))", color: "#c49a6c" }}>
                       École Supérieure Polytechnique de Dakar
                     </span>
                     , je suis une
-                    <span className="font-semibold px-2 py-1 rounded mx-1"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1))",
-                        color: "#8b5cf6",
-                      }}
-                    >
+                    <span className="font-semibold px-2 py-1 rounded mx-1" style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1))", color: "#8b5cf6" }}>
                       Software Engineer
                     </span>
                     spécialisée en
-                    <span className="font-semibold px-2 py-1 rounded mx-1"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.1))",
-                        color: "#06b6d4",
-                      }}
-                    >
+                    <span className="font-semibold px-2 py-1 rounded mx-1" style={{ background: "linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.1))", color: "#06b6d4" }}>
                       Data & Intelligence Artificielle
                     </span>
                     .
                   </p>
-
                   <p className="leading-relaxed text-base" style={{ color: "#cbd5e0" }}>
                     Avec une solide expérience académique et professionnelle et
-                    <span className="font-semibold text-[#c49a6c] mx-1">
-                      plusieurs projets data & logiciels
-                    </span>
+                    <span className="font-semibold text-[#c49a6c] mx-1">plusieurs projets data & logiciels</span>
                     à mon actif, je conçois des applications performantes et scalables orientées analyse, automatisation et prise de décision.
                   </p>
-
                   <p className="leading-relaxed text-base" style={{ color: "#cbd5e0" }}>
                     De la
-                    <span className="font-semibold text-[#c49a6c] mx-1">
-                      data analysis & machine learning
-                    </span>
+                    <span className="font-semibold text-[#c49a6c] mx-1">data analysis & machine learning</span>
                     au
-                    <span className="font-semibold text-[#c49a6c] mx-1">
-                      développement d'applications intelligentes
-                    </span>
+                    <span className="font-semibold text-[#c49a6c] mx-1">développement d'applications intelligentes</span>
                     , j'allie expertise technique et vision produit pour résoudre des problèmes complexes à fort impact.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Objectif card with magnetic effect */}
             <div
               className="relative group cursor-pointer"
-              onMouseEnter={(e) => setHoveredCard('objectif')}
+              onMouseEnter={() => setHoveredCard("objectif")}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Glow effect */}
-              <div className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"
-                style={{ background: "linear-gradient(135deg, #c49a6c, #8b5cf6)" }}
-              />
-              
-              <div className="relative p-8 rounded-3xl transition-all duration-700 group-hover:scale-[1.02]"
+              <div className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-700" style={{ background: "linear-gradient(135deg, #c49a6c, #8b5cf6)" }} />
+              <div
+                className="relative p-8 rounded-3xl transition-all duration-700 group-hover:scale-[1.02]"
                 style={{
                   background: "linear-gradient(135deg, rgba(196,154,108,0.15), rgba(139,92,246,0.15))",
                   border: "1px solid rgba(196,154,108,0.3)",
@@ -333,29 +304,22 @@ function About() {
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:rotate-12 group-hover:scale-110"
-                    style={{
-                      background: "linear-gradient(135deg, #c49a6c, #8b5cf6)",
-                      boxShadow: "0 0 20px rgba(196,154,108,0.4)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, #c49a6c, #8b5cf6)", boxShadow: "0 0 20px rgba(196,154,108,0.4)" }}
                   >
                     <Sparkles className="w-5 h-5" style={{ color: "#fff" }} />
                   </div>
-                  <p className="font-bold text-sm tracking-[0.15em]" style={{ color: "#c49a6c" }}>
-                    OBJECTIF ACTUEL
-                  </p>
+                  <p className="font-bold text-sm tracking-[0.15em]" style={{ color: "#c49a6c" }}>OBJECTIF ACTUEL</p>
                 </div>
                 <p className="leading-relaxed text-base" style={{ color: "#cbd5e0" }}>
                   Je recherche une
-                  <span className="font-semibold text-[#c49a6c] mx-1">
-                    alternance en Data Analysis / IA
-                  </span>
+                  <span className="font-semibold text-[#c49a6c] mx-1">alternance en Data Analysis / IA</span>
                   pour appliquer mes compétences sur des projets innovants et continuer à apprendre.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right - Education Timeline */}
+          {/* Right - Education */}
           <div
             className="flex flex-col gap-8"
             style={{
@@ -365,26 +329,15 @@ function About() {
             }}
           >
             <div className="mb-4">
-              <h3 className="text-3xl font-bold mb-4" style={{ color: "#f0ece6" }}>
-                Formation
-              </h3>
-              <div
-                className="h-1 rounded-full"
-                style={{
-                  width: "60px",
-                  background: "linear-gradient(90deg, #c49a6c, transparent)",
-                }}
-              />
+              <h3 className="text-3xl font-bold mb-4" style={{ color: "#f0ece6" }}>Formation</h3>
+              <div className="h-1 rounded-full" style={{ width: "60px", background: "linear-gradient(90deg, #c49a6c, transparent)" }} />
             </div>
 
             <div className="flex flex-col gap-0 relative">
-              {/* Animated timeline line */}
-              <div className="absolute left-[7px] top-4 bottom-0 w-[2px]"
-                style={{
-                  background: "linear-gradient(180deg, #c49a6c, rgba(196,154,108,0.2))",
-                }}
+              <div
+                className="absolute left-[7px] top-4 bottom-0 w-[2px]"
+                style={{ background: "linear-gradient(180deg, #c49a6c, rgba(196,154,108,0.2))" }}
               />
-
               {education.map((edu, index) => (
                 <div
                   key={index}
@@ -395,73 +348,51 @@ function About() {
                     transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${700 + index * 150}ms`,
                   }}
                 >
-                  {/* Timeline dot with glow */}
                   <div
                     className="absolute left-0 top-4 w-4 h-4 rounded-full transition-all duration-500"
                     style={{
                       backgroundColor: edu.active ? "#c49a6c" : "#4a5568",
-                      boxShadow: edu.active
-                        ? "0 0 0 6px rgba(196,154,108,0.2), 0 0 30px rgba(196,154,108,0.6)"
-                        : "0 0 0 4px rgba(74,85,104,0.2)",
+                      boxShadow: edu.active ? "0 0 0 6px rgba(196,154,108,0.2), 0 0 30px rgba(196,154,108,0.6)" : "0 0 0 4px rgba(74,85,104,0.2)",
                       transform: edu.active ? "scale(1.2)" : "scale(1)",
                     }}
                   >
                     {edu.active && (
-                      <div
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          backgroundColor: "#c49a6c",
-                          animation: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-                        }}
-                      />
+                      <div className="absolute inset-0 rounded-full" style={{ backgroundColor: "#c49a6c", animation: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite" }} />
                     )}
                   </div>
 
-                  {/* Card with hover effect */}
                   <div
                     className="rounded-2xl p-6 transition-all duration-500 cursor-pointer"
                     style={{
                       background: edu.active
                         ? "linear-gradient(135deg, rgba(196,154,108,0.15), rgba(139,92,246,0.1))"
                         : "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
-                      border: edu.active
-                        ? "1px solid rgba(196,154,108,0.4)"
-                        : "1px solid rgba(255,255,255,0.08)",
+                      border: edu.active ? "1px solid rgba(196,154,108,0.4)" : "1px solid rgba(255,255,255,0.08)",
                       boxShadow: edu.active
                         ? "0 10px 40px rgba(196,154,108,0.15), inset 0 1px 0 rgba(255,255,255,0.1)"
                         : "0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "translateY(-4px) translateX(4px)";
-                      e.currentTarget.style.boxShadow = edu.active
-                        ? "0 20px 60px rgba(196,154,108,0.25)"
-                        : "0 10px 40px rgba(0,0,0,0.3)";
+                      e.currentTarget.style.boxShadow = edu.active ? "0 20px 60px rgba(196,154,108,0.25)" : "0 10px 40px rgba(0,0,0,0.3)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = "translateY(0) translateX(0)";
-                      e.currentTarget.style.boxShadow = edu.active
-                        ? "0 10px 40px rgba(196,154,108,0.15)"
-                        : "0 4px 15px rgba(0,0,0,0.2)";
+                      e.currentTarget.style.boxShadow = edu.active ? "0 10px 40px rgba(196,154,108,0.15)" : "0 4px 15px rgba(0,0,0,0.2)";
                     }}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
                           style={{
-                            background: edu.active
-                              ? "linear-gradient(135deg, #c49a6c, #8b5cf6)"
-                              : "rgba(255,255,255,0.05)",
+                            background: edu.active ? "linear-gradient(135deg, #c49a6c, #8b5cf6)" : "rgba(255,255,255,0.05)",
                             color: "#fff",
                           }}
                         >
                           {edu.icon}
                         </div>
-                        <h4
-                          className="font-bold text-base"
-                          style={{ color: "#f0ece6" }}
-                        >
-                          {edu.degree}
-                        </h4>
+                        <h4 className="font-bold text-base" style={{ color: "#f0ece6" }}>{edu.degree}</h4>
                       </div>
                       {edu.active && (
                         <span
@@ -477,12 +408,8 @@ function About() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm mb-2" style={{ color: "#9fb3c8" }}>
-                      {edu.school}
-                    </p>
-                    <p className="text-xs font-medium" style={{ color: "#718096" }}>
-                      {edu.year}
-                    </p>
+                    <p className="text-sm mb-2" style={{ color: "#9fb3c8" }}>{edu.school}</p>
+                    <p className="text-xs font-medium" style={{ color: "#718096" }}>{edu.year}</p>
                   </div>
                 </div>
               ))}
@@ -490,7 +417,7 @@ function About() {
           </div>
         </div>
 
-        {/* Highlights Grid with advanced hover effects */}
+        {/* Highlights Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {highlights.map((item, index) => (
             <div
@@ -504,14 +431,14 @@ function About() {
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Glow effect on hover */}
+              {/* Glow */}
               <div
                 className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-50 transition-all duration-700"
                 style={{ backgroundColor: item.color }}
               />
 
               <div
-                className="relative p-8 rounded-3xl transition-all duration-700 group-hover:scale-105"
+                className="relative p-8 rounded-3xl transition-all duration-700 group-hover:scale-105 flex flex-col h-full"
                 style={{
                   background: hoveredCard === index
                     ? "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))"
@@ -522,7 +449,7 @@ function About() {
                     : "0 8px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
                 }}
               >
-                {/* Icon with rotation and scale */}
+                {/* Icon */}
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-700 group-hover:rotate-12 group-hover:scale-110"
                   style={{
@@ -541,11 +468,50 @@ function About() {
                   {item.title}
                 </h4>
 
-                <p className="text-sm leading-relaxed" style={{ color: "#9fb3c8" }}>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: "#9fb3c8" }}>
                   {item.description}
                 </p>
 
-                {/* Accent line at bottom */}
+                {/* ── Certificates buttons ── */}
+                {item.certificates && (
+                  <div className="mt-5 flex flex-col gap-2">
+                    {item.certificates.map((cert, i) => (
+                      <a
+                        key={i}
+                        href={cert.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 group/btn"
+                        style={{
+                          background: "rgba(245,158,11,0.08)",
+                          border: "1px solid rgba(245,158,11,0.2)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(245,158,11,0.18)";
+                          e.currentTarget.style.borderColor = "rgba(245,158,11,0.5)";
+                          e.currentTarget.style.transform = "translateX(3px)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "rgba(245,158,11,0.08)";
+                          e.currentTarget.style.borderColor = "rgba(245,158,11,0.2)";
+                          e.currentTarget.style.transform = "translateX(0)";
+                        }}
+                      >
+                        {/* Badge thumbnail */}
+
+                        {/* Label */}
+                        <span className="text-[11px] font-semibold flex-1 leading-tight" style={{ color: "#f59e0b" }}>
+                          {cert.name}
+                        </span>
+
+                        {/* Icon */}
+                        <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 opacity-50" style={{ color: "#f59e0b" }} />
+                      </a>
+                    ))}
+                  </div>
+                )}
+
+                {/* Accent line */}
                 <div
                   className="mt-5 h-1 rounded-full transition-all duration-700"
                   style={{
@@ -560,7 +526,6 @@ function About() {
         </div>
       </div>
 
-      {/* Advanced animations */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
