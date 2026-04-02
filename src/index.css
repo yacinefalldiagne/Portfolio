@@ -68,6 +68,11 @@
   }
 }
 
+body {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }

@@ -18,7 +18,6 @@ function Navbar() {
   const [magnetPos, setMagnetPos] = useState({ x: 0, y: 0 });
   const logoRef = useRef(null);
 
-  // Mount animation
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
@@ -50,7 +49,6 @@ function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // Magnetic logo effect
   const handleLogoMouseMove = useCallback((e) => {
     const rect = logoRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -91,10 +89,6 @@ function Navbar() {
           from { opacity: 0; transform: translateY(-10px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes glowPulse {
-          0%, 100% { box-shadow: 0 0 6px rgba(196,154,108,0.4); }
-          50%       { box-shadow: 0 0 18px rgba(196,154,108,0.9); }
-        }
         @keyframes shimmer {
           0%   { background-position: -200% center; }
           100% { background-position:  200% center; }
@@ -111,18 +105,16 @@ function Navbar() {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.2; }
         }
-
         .nav-link-hover::before {
           content: '';
           position: absolute;
           inset: 0;
           border-radius: 8px;
-          background: radial-gradient(ellipse at center, rgba(196,154,108,0.08) 0%, transparent 70%);
+          background: radial-gradient(ellipse at center, rgba(37,99,235,0.08) 0%, transparent 70%);
           opacity: 0;
           transition: opacity 0.3s ease;
         }
         .nav-link-hover:hover::before { opacity: 1; }
-
         .active-dot {
           animation: dotBlink 2s ease-in-out infinite;
         }
@@ -133,19 +125,20 @@ function Navbar() {
         className="fixed top-0 left-0 w-full z-50"
         style={{
           animation: "navSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-          backgroundColor: scrolled ? "rgba(10, 15, 28, 0.96)" : "rgba(10, 15, 28, 0.55)",
+          backgroundColor: scrolled
+            ? "rgba(255, 255, 255, 0.96)"
+            : "rgba(255, 255, 255, 0.80)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           borderBottom: scrolled
-            ? "1px solid rgba(196, 154, 108, 0.18)"
-            : "1px solid rgba(255,255,255,0.04)",
+            ? "1px solid rgba(37, 99, 235, 0.15)"
+            : "1px solid rgba(0,0,0,0.06)",
           boxShadow: scrolled
-            ? "0 1px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(196,154,108,0.05)"
+            ? "0 1px 30px rgba(0,0,0,0.08)"
             : "none",
           transition: "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
         }}
       >
-        {/* Scanline sweep on scroll */}
         {scrolled && (
           <div
             style={{
@@ -154,7 +147,7 @@ function Navbar() {
               left: 0,
               width: "60px",
               height: "100%",
-              background: "linear-gradient(90deg, transparent, rgba(196,154,108,0.06), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(37,99,235,0.05), transparent)",
               animation: "scanline 4s linear infinite",
               pointerEvents: "none",
             }}
@@ -180,28 +173,27 @@ function Navbar() {
               gap: "10px",
             }}
           >
-            {/* Monogram box */}
+            {/* Monogram box — juste texte, pas de fond coloré */}
             <div
               className="relative"
               style={{
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: "linear-gradient(135deg, rgba(196,154,108,0.2), rgba(196,154,108,0.05))",
-                border: "1px solid rgba(196,154,108,0.35)",
+                background: "rgba(37,99,235,0.06)",
+                border: "1px solid rgba(37,99,235,0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 0 0 0 rgba(196,154,108,0.4)",
                 transition: "all 0.4s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 20px rgba(196,154,108,0.5)";
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,154,108,0.35), rgba(196,154,108,0.1))";
+                e.currentTarget.style.background = "rgba(37,99,235,0.12)";
+                e.currentTarget.style.borderColor = "rgba(37,99,235,0.4)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 0 0 rgba(196,154,108,0.4)";
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,154,108,0.2), rgba(196,154,108,0.05))";
+                e.currentTarget.style.background = "rgba(37,99,235,0.06)";
+                e.currentTarget.style.borderColor = "rgba(37,99,235,0.2)";
               }}
             >
               <span
@@ -209,12 +201,7 @@ function Navbar() {
                   fontSize: 14,
                   fontWeight: 800,
                   letterSpacing: "0.05em",
-                  background: "linear-gradient(135deg, #c49a6c, #e8c99a, #c49a6c)",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  animation: "shimmer 3s linear infinite",
+                  color: "#2563EB",
                 }}
               >
                 YD
@@ -224,9 +211,9 @@ function Navbar() {
             {/* Wordmark */}
             <span
               className="hidden sm:block text-[11px] font-light tracking-[0.3em] uppercase"
-              style={{ color: "rgba(255,255,255,0.35)", transition: "color 0.3s ease" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(196,154,108,0.7)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.35)"; }}
+              style={{ color: "rgba(0,0,0,0.35)", transition: "color 0.3s ease" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(0,0,0,0.35)"; }}
             >
               Portfolio
             </span>
@@ -245,32 +232,28 @@ function Navbar() {
                   onMouseLeave={() => setHoveredLink(null)}
                   className="nav-link-hover relative px-4 py-2 rounded-lg text-[12px] font-medium uppercase tracking-[0.12em] transition-colors duration-300"
                   style={{
-                    color: active ? "#c49a6c" : hoveredLink === i ? "#ffffff" : "rgba(255,255,255,0.45)",
+                    color: active ? "#2563EB" : hoveredLink === i ? "#111" : "rgba(0,0,0,0.45)",
                     animation: `linkReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.4 + i * 0.07}s both`,
                   }}
                 >
-                  {/* Active indicator dot */}
                   {active && (
                     <span
                       className="active-dot absolute -top-0.5 left-1/2 w-1 h-1 rounded-full"
                       style={{
                         transform: "translateX(-50%)",
-                        backgroundColor: "#c49a6c",
-                        boxShadow: "0 0 6px #c49a6c",
+                        backgroundColor: "#2563EB",
+                        boxShadow: "0 0 6px #2563EB",
                       }}
                     />
                   )}
-
                   {link.name}
-
-                  {/* Underline bar */}
                   <span
                     className="absolute bottom-0 left-1/2 h-[1.5px] rounded-full"
                     style={{
                       width: active ? "55%" : hoveredLink === i ? "35%" : "0%",
                       transform: "translateX(-50%)",
-                      backgroundColor: active ? "#c49a6c" : "rgba(255,255,255,0.3)",
-                      boxShadow: active ? "0 0 8px rgba(196,154,108,0.8)" : "none",
+                      backgroundColor: active ? "#2563EB" : "rgba(0,0,0,0.2)",
+                      boxShadow: active ? "0 0 8px rgba(37,99,235,0.5)" : "none",
                       transition: "width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease",
                     }}
                   />
@@ -278,36 +261,35 @@ function Navbar() {
               );
             })}
 
-            {/* Divider */}
-            <div className="w-px h-4 mx-3" style={{ backgroundColor: "rgba(255,255,255,0.07)" }} />
+            <div className="w-px h-4 mx-3" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
 
             {/* CTA button */}
             <a
               href="#contact"
               onClick={(e) => goTo(e, "#contact")}
-              className="relative overflow-hidden px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all duration-400 group"
+              className="relative overflow-hidden px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all duration-300"
               style={{
-                background: "linear-gradient(135deg, rgba(196,154,108,0.15), rgba(196,154,108,0.08))",
-                border: "1px solid rgba(196,154,108,0.35)",
-                color: "#c49a6c",
+                background: "rgba(37,99,235,0.08)",
+                border: "1px solid rgba(37,99,235,0.3)",
+                color: "#2563EB",
                 animation: `linkReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.4 + navLinks.length * 0.07}s both`,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "linear-gradient(135deg, #c49a6c, #d4aa7d)";
-                e.currentTarget.style.color = "#0a0f1c";
-                e.currentTarget.style.boxShadow = "0 0 24px rgba(196,154,108,0.5)";
+                e.currentTarget.style.background = "#2563EB";
+                e.currentTarget.style.color = "#ffffff";
+                e.currentTarget.style.boxShadow = "0 0 20px rgba(37,99,235,0.35)";
                 e.currentTarget.style.borderColor = "transparent";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(196,154,108,0.15), rgba(196,154,108,0.08))";
-                e.currentTarget.style.color = "#c49a6c";
+                e.currentTarget.style.background = "rgba(37,99,235,0.08)";
+                e.currentTarget.style.color = "#2563EB";
                 e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "rgba(196,154,108,0.35)";
+                e.currentTarget.style.borderColor = "rgba(37,99,235,0.3)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              {/* Shimmer sweep */}
+              Me contacter
             </a>
           </div>
 
@@ -316,9 +298,9 @@ function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300"
             style={{
-              color: mobileOpen ? "#c49a6c" : "rgba(255,255,255,0.6)",
-              background: mobileOpen ? "rgba(196,154,108,0.1)" : "transparent",
-              border: mobileOpen ? "1px solid rgba(196,154,108,0.2)" : "1px solid transparent",
+              color: mobileOpen ? "#2563EB" : "rgba(0,0,0,0.5)",
+              background: mobileOpen ? "rgba(37,99,235,0.08)" : "transparent",
+              border: mobileOpen ? "1px solid rgba(37,99,235,0.2)" : "1px solid transparent",
             }}
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
@@ -327,7 +309,6 @@ function Navbar() {
               style={{
                 opacity: mobileOpen ? 0 : 1,
                 transform: mobileOpen ? "rotate(180deg) scale(0)" : "rotate(0) scale(1)",
-                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               <Menu size={20} />
@@ -337,7 +318,6 @@ function Navbar() {
               style={{
                 opacity: mobileOpen ? 1 : 0,
                 transform: mobileOpen ? "rotate(0) scale(1)" : "rotate(-180deg) scale(0)",
-                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               <X size={20} />
@@ -345,7 +325,6 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Progress bar */}
         <ScrollProgress visible={scrolled} />
       </nav>
 
@@ -353,7 +332,7 @@ function Navbar() {
       <div
         className="fixed inset-0 z-40 lg:hidden"
         style={{
-          backgroundColor: "rgba(8, 12, 22, 0.98)",
+          backgroundColor: "rgba(255,255,255,0.98)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
           opacity: mobileOpen ? 1 : 0,
@@ -365,13 +344,12 @@ function Navbar() {
           justifyContent: "center",
         }}
       >
-        {/* Decorative corner lines */}
         {[["top-8 left-8", "0 0 0 1px"], ["top-8 right-8", "0 0 1px 0"], ["bottom-8 left-8", "0 1px 0 0"], ["bottom-8 right-8", "1px 0 0 0"]].map(([pos, border], i) => (
           <div
             key={i}
             className={`absolute ${pos} w-8 h-8`}
             style={{
-              borderColor: "rgba(196,154,108,0.2)",
+              borderColor: "rgba(37,99,235,0.2)",
               borderStyle: "solid",
               borderWidth: border,
               opacity: mobileOpen ? 1 : 0,
@@ -380,14 +358,13 @@ function Navbar() {
           />
         ))}
 
-        {/* Ambient orb */}
         <div
           style={{
             position: "absolute",
             width: "40vw",
             height: "40vw",
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(196,154,108,0.06), transparent 70%)",
+            background: "radial-gradient(circle, rgba(37,99,235,0.05), transparent 70%)",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
@@ -405,22 +382,22 @@ function Navbar() {
                 onClick={(e) => goTo(e, link.href)}
                 className="relative w-full max-w-xs text-center py-4 transition-all duration-300 rounded-xl"
                 style={{
-                  color: active ? "#c49a6c" : "rgba(255,255,255,0.55)",
+                  color: active ? "#2563EB" : "rgba(0,0,0,0.5)",
                   fontSize: "1.25rem",
                   fontWeight: 300,
                   letterSpacing: "0.1em",
                   animation: mobileOpen
                     ? `mobileItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms both`
                     : "none",
-                  borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  borderBottom: "1px solid rgba(0,0,0,0.05)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = active ? "#c49a6c" : "#ffffff";
-                  e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                  e.currentTarget.style.color = active ? "#2563EB" : "#111";
+                  e.currentTarget.style.background = "rgba(37,99,235,0.04)";
                   e.currentTarget.style.letterSpacing = "0.2em";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = active ? "#c49a6c" : "rgba(255,255,255,0.55)";
+                  e.currentTarget.style.color = active ? "#2563EB" : "rgba(0,0,0,0.5)";
                   e.currentTarget.style.background = "transparent";
                   e.currentTarget.style.letterSpacing = "0.1em";
                 }}
@@ -432,8 +409,8 @@ function Navbar() {
                       width: 5,
                       height: 5,
                       borderRadius: "50%",
-                      backgroundColor: "#c49a6c",
-                      boxShadow: "0 0 8px #c49a6c",
+                      backgroundColor: "#2563EB",
+                      boxShadow: "0 0 8px #2563EB",
                       marginRight: 10,
                       verticalAlign: "middle",
                       animation: "dotBlink 2s ease-in-out infinite",
@@ -445,40 +422,31 @@ function Navbar() {
             );
           })}
 
-          {/* Divider */}
           <div
             style={{
               width: 48,
               height: 1,
-              backgroundColor: "rgba(196,154,108,0.2)",
+              backgroundColor: "rgba(37,99,235,0.15)",
               margin: "16px 0",
-              animation: mobileOpen ? `mobileItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${navLinks.length * 80}ms both` : "none",
+              animation: mobileOpen
+                ? `mobileItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${navLinks.length * 80}ms both`
+                : "none",
             }}
           />
 
-          {/* Mobile CTA */}
           <a
             href="#contact"
             onClick={(e) => goTo(e, "#contact")}
             className="relative overflow-hidden px-10 py-3.5 rounded-full font-bold uppercase tracking-widest text-sm"
             style={{
-              background: "linear-gradient(135deg, #c49a6c, #d4aa7d)",
-              color: "#0a0f1c",
-              boxShadow: "0 0 30px rgba(196,154,108,0.3)",
+              background: "#2563EB",
+              color: "#ffffff",
+              boxShadow: "0 0 30px rgba(37,99,235,0.25)",
               animation: mobileOpen
                 ? `mobileItemIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${(navLinks.length + 1) * 80}ms both`
                 : "none",
             }}
           >
-            <span
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-                backgroundSize: "200% auto",
-                animation: "shimmer 2s linear infinite",
-              }}
-            />
             Me contacter
           </a>
         </div>
@@ -501,22 +469,19 @@ function ScrollProgress({ visible }) {
 
   return (
     <div style={{ position: "relative", height: "1.5px", overflow: "hidden" }}>
-      {/* Track */}
-      <div style={{ position: "absolute", inset: 0, backgroundColor: "rgba(255,255,255,0.03)" }} />
-      {/* Fill */}
+      <div style={{ position: "absolute", inset: 0, backgroundColor: "rgba(0,0,0,0.03)" }} />
       <div
         style={{
           height: "100%",
           width: `${progress}%`,
-          background: "linear-gradient(90deg, #8b5cf6, #c49a6c, #06b6d4)",
+          background: "linear-gradient(90deg, #2563EB, #60a5fa, #2563EB)",
           backgroundSize: "200% auto",
           animation: "shimmer 3s linear infinite",
           opacity: visible ? 1 : 0,
           transition: "opacity 0.4s ease, width 0.1s linear",
-          boxShadow: "0 0 8px rgba(196,154,108,0.6)",
+          boxShadow: "0 0 8px rgba(37,99,235,0.4)",
         }}
       />
-      {/* Leading glow dot */}
       {visible && progress > 2 && (
         <div
           style={{
@@ -527,8 +492,8 @@ function ScrollProgress({ visible }) {
             width: 6,
             height: 6,
             borderRadius: "50%",
-            backgroundColor: "#c49a6c",
-            boxShadow: "0 0 10px #c49a6c, 0 0 20px rgba(196,154,108,0.5)",
+            backgroundColor: "#2563EB",
+            boxShadow: "0 0 10px #2563EB, 0 0 20px rgba(37,99,235,0.5)",
             transition: "left 0.1s linear",
           }}
         />
