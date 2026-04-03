@@ -152,12 +152,16 @@ const skills = {
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
     },
     {
-      name: "Cypress",
-      icon: "https://img.icons8.com/color/96/000000/cypress.png",
-    },
-    {
       name: "Playwright",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg",
+    },
+    {
+      name: "Looping",
+      icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREMCGhl3_dzBLnedn5q-Cim3oWYT3tlgodLA&s",
+    },
+    {
+      name: "Multisim",
+      icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuJmSOyLBtMDR4MNLJCIVnXXOsQYacOAWbAw&s",
     },
   ],
   data: [
@@ -198,12 +202,8 @@ const skills = {
       icon: "https://cloudfront-eu-central-1.images.arcpublishing.com/infopro/TOUM64EQE5O3XMFABJ4NCVSJDI.png",
     },
     {
-      name: "Azure",
+      name: "Azure openAI",
       icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg",
-    },
-    {
-      name: "OpenAI",
-      icon: "https://raw.githubusercontent.com/openai/logos/main/logos/openai-icon.svg",
     },
   ],
   automation: [
@@ -217,7 +217,7 @@ const skills = {
     },
     {
       name: "Make",
-      icon: "https://cdn.lafabriquedunet.fr/software/logos/63/logo-make-1764919364.webp",
+      icon: "https://cdn.prod.website-files.com/5ddbac2fb824212da1b91350/673e0d90e165cb74f86b2086_Make-square-color-white-600x600.jpg",
     },
     {
       name: "Notion",
@@ -225,7 +225,7 @@ const skills = {
     },
     {
       name: "n8n",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/n8n/n8n-original.svg",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/N8n-logo-new.svg/1280px-N8n-logo-new.svg.png",
     },
   ],
 };
